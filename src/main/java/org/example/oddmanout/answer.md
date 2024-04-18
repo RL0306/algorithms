@@ -18,7 +18,7 @@
 
 ## Step 2: Abstract Formulation
 
-Given values, find which number does not have a matching pair such that the count of `values[i] = 0`.
+Given values, find which number does not have a matching pair such that the count of `values[i] = 1`.
 
 ## Step 3: Pseudocode solution
 
