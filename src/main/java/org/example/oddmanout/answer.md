@@ -18,19 +18,20 @@
 
 ## Step 2: Abstract Formulation
 
-Given values, find which number does not have a matching pair such that the count of `values[i] = 0`.
+Given a list of values which are odd and where an input can only appear twice, find which number from the input values 
+occurs only once.
 
 ## Step 3: Pseudocode solution
 
 ```pseudo
 numberFrequencies = empty map
 for int num : nums
-count = numberFrequencies[num]
-numberFrequencies[num] = count + 1
+    count = numberFrequencies[num]
+    numberFrequencies[num] = count + 1
 
-for map.entry key : numberFrequencies.entrySet
-if key.getValue == 1
-    return key.getKey()
+for key : numberFrequencies
+    if key.getValue == 1
+        return key.getKey()
 unreachable
 ```
 
@@ -38,11 +39,8 @@ unreachable
 
 Consider a run of the algorithm with input values. We prove one thing:
 
-1. If the algorithm returns, the answer is correct.
-    - For part 1, if the algorithm returns `key.getKey()`, we know that we found a value which does not have a matching pair and therefore came by itself. Hence, the result is correct as for it to have a pair, it would need a value of 2.
-    - We range over the entire entry set till we find a valid result with a value of 1
+Initially the map is empty, during each iteration of the loop we store the frequencies of each number we come across. After doing so we then loop through the map
+till we come across a key that has a value of 1 indicating that it only appeared one in the input array since we iterated through the entire input.
 
-**Conclusion:**
-In this algorithm, we will always get a return result, therefore meaning this algorithm is correct.
 
 
