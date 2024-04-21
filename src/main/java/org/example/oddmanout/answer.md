@@ -18,8 +18,7 @@
 
 ## Step 2: Abstract Formulation
 
-Given a list of values which are odd and where an input can only appear twice, find which number from the input values 
-occurs only once.
+Given a list of integers where each integer can appear at most twice and the total number of integers is odd, find the integer that occurs only once in the list.
 
 ## Step 3: Pseudocode solution
 
@@ -37,10 +36,11 @@ unreachable
 
 ## Step 4: Proof of correctness
 
-Consider a run of the algorithm with input values. We prove one thing:
+If the algorithm returns the entry key value, it indicates that the condition key.getValue == 1 is true, which means the corresponding value only appeared once in the input list. This satisfies the requirement of identifying the unique element from the input list, as stated in our abstract formulation.
 
-Initially the map is empty, during each iteration of the loop we store the frequencies of each number we come across. After doing so we then loop through the map
-till we come across a key that has a value of 1 indicating that it only appeared one in the input array since we iterated through the entire input.
+Additionally, the algorithm iterates through the entire input list, ensuring that each value is included in the frequency count stored in the map. This guarantees that no input value is overlooked, and all occurrences are properly included during the frequency counting process.
+
+Therefore, by successfully identifying the unique element and considering all input values, our algorithm demonstrates correctness in solving the given problem.
 
 
 
