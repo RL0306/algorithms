@@ -33,66 +33,66 @@ The first person times should be considered from first lap times and the rest fr
 ## Step 3: Pseudocode solution
 
 ```pseudo
-    void bestRelay():
-    // Initialize variables
-    numberOfPlayer = readIntegerFromInput()
-    firstLap = TreeMap<Double, String>()
-    otherLaps = TreeMap<Double, String>()
-    smallest = Double.MAX_VALUE
-    names = List<String>()
+// Main function to determine the best relay team
+function bestRelay()
+    // Create LapTime object by reading input data
+    LapTime lapData = createLapDataFromInput()
 
-    // Loop to read input for each player
-    for i from 1 to numberOfPlayer:
-        input = readLineFromInput()
-        playerData = splitString(input, " ")
-        name = playerData[0]
-        speedFirstLap = parseDouble(playerData[1])
-        speedOtherLap = parseDouble(playerData[2])
+    // Sort the lap times for first laps and other laps
+    Map sortedFirstLaps = sortByLapTime(lapData.firstLap)
+    Map sortedOtherLaps = sortByLapTime(lapData.otherLap)
 
-        // Store data in maps
-        firstLap.put(speedFirstLap, name)
-        otherLaps.put(speedOtherLap, name)
+    // Initialize the smallest lap time to a large value
+    double smallestLapTime = MAX_VALUE
+    // Initialize the best relay team as an empty list
+    List relayTeam = []
 
-    // Loop through each player's first lap data
-    for entry in firstLap:
-        currentSpeed = entry.getKey()
-        name = entry.getValue()
-        currentNames = List<String>()
-        currentNames.add(name)
-        count = 1
+    // Iterate through each runner's first lap time
+    for each entry in sortedFirstLaps
+        // Get the current runner's name and lap time
+        String currentRunner = entry.key
+        double currentFirstLapTime = entry.value
 
-        // Calculate combined speed for 4 players
-        for otherEntry in otherLaps:
-            speedTwo = otherEntry.getKey()
-            nameTwo = otherEntry.getValue()
+        // Initialize current team with the first lap runner
+        List currentTeam = [currentRunner]
+        double currentLapTime = currentFirstLapTime
+        int currentTeamSize = 1
 
-            if name != nameTwo:
-                currentSpeed += speedTwo
-                currentNames.add(nameTwo)
-                count += 1
+        // Iterate through other laps to find additional team members
+        for each otherEntry in sortedOtherLaps
+            // Get the current runner's name and other lap time
+            String otherRunner = otherEntry.key
+            double otherLapTime = otherEntry.value
 
-            // If we have 4 players, check for smallest combined speed
-            if count == 4:
-                if currentSpeed < smallest:
-                    smallest = currentSpeed
-                    names.clear()
-                    names.addAll(currentNames)
-                break
+            // Skip if the runner is already in the team
+            if currentRunner != otherRunner
+                // Add the runner to the current team
+                currentTeam.add(otherRunner)
+                currentLapTime += otherLapTime
+                currentTeamSize++
 
-    // Output the result
-    print(smallest)
-    for name in names:
+                // Check if the team has 4 members
+                if currentTeamSize == 4
+                    // Update the smallest lap time and best team if a better team is found
+                    if currentLapTime < smallestLapTime
+                        smallestLapTime = currentLapTime
+                        relayTeam = copy(currentTeam)
+                    
+                    // Break as we found a complete team
+                    break
+
+    // Output the smallest lap time and the names of the best relay team members
+    print(smallestLapTime)
+    for each name in relayTeam
         print(name)
+
 ```
-
-The aim is to tie together parts 2 and 3: part 2 says what you want to do, part 3 suggests a solution,
-and part 4 should show that part 3 is really a solution to part 2.
-
-Right now your proof is just a restatement in plain language of what part 3 does, but it doesn't explain the connection to part 2.
-
 ## Step 4: Proof of correctness
 
-Iterating through the entire one lap list and then combining their lap time with the next three fastest lap times (from otherLaps map) to form a team of four athletes.
-If this results in a smaller time we then update the smallest value for the next iterations to check again.
+We initialise the `smallestLapTime` to the largest value, this ensures that any smaller value will be smaller than this. We have an empty list `relayTeam` which will hold the names of the relay team.
 
-Once all iterations are done we then know we have the smallest result as every possible case is determined.
+After parsing the input the two maps will hold date of every person from smallest to largest.
+
+Iterating through `sortedFirstLaps` and then sequentially iterating through `sortedOtherLaps` we keep updating the currentTeamSize till it gets to 4 at which point we check if we got the fastest lap time for that possible first lap.
+
+Once we reach the end of the loops we know by iterating through every possible persons first lap time we know that we return we obtained the fastest relay team.
