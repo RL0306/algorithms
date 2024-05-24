@@ -1,0 +1,43 @@
+t = current time
+s = amount of sand
+n = number of times the hourglass was flipped
+
+
+One line with  integers 1..N, the times at which the hourglass was flipped.
+
+1. 
+    t  s n 
+    10 7 2
+    4 9
+    
+    4 -> 7
+    9 -> 2
+    10 -> 3    
+
+    answer = 7 (total) - 3 (current sand at 4) = 4
+   
+2.  
+   t    s   n
+   2000 333 3
+   1000 1250 1500
+   
+   1000 -> 333  
+   1250 -> 333 - 250 = 83 
+   1500 -> 83 + 250 = 333
+   2000 -> 333
+
+answer = 333 (total) - 333(current sand at 2000) = 0 
+
+3.
+   t   s  n
+   100 10 5 
+   15 20 93 96 97
+
+   15 -> 10 
+   20 -> 5    
+   93 -> 10
+   96 -> 7
+   97 -> 8
+   100 -> 10
+
+answer = 10 (total) - 10(current sand at 100) = 0
